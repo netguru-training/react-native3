@@ -1,14 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import { ListTask } from './components/ListTask/ListTask';
+
 
 export default class App extends React.Component {
+
+	constructor() {
+		super();
+
+		this.state = {
+			tasks: this.sampleTasks()
+		}
+
+	}
+
+	sampleTasks() {
+		return [
+			{ id: 1, name: 'Pierwszy task', description: 'Opis taska', isDone: false },
+			{ id: 2, name: 'Drugi lecz zrobiony', description: 'Task szybko wykonany', isDone: true },
+		];
+	}
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+    	<View>
+				{/*<FlatList style={styles.container}>*/}
+					{this.state.tasks.map(task => <ListTask key={task.id} task={task} />)}
+				{/*</FlatList>*/}
+			</View>
     );
   }
 }
