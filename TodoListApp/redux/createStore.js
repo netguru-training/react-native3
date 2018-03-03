@@ -8,8 +8,8 @@ export default function configureStore(initialState) {
     loadState().then(persistedState => {
       console.log("persistedState", persistedState);
       const store = createStore(rootReducer, {
-        ...persistedState,
-        ...initialState
+        ...initialState,
+        ...persistedState
       });
 
       store.subscribe(
