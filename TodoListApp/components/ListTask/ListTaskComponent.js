@@ -3,7 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 const CheckBox = require('react-native-checkbox');
 
-export default class ListTask extends Component {
+export default class ListTaskComponent extends Component {
     constructor(props) {
         super(props);
     }
@@ -21,6 +21,11 @@ export default class ListTask extends Component {
         );
     }
 }
+
+ListTaskComponent.propTypes = {
+	checkBoxDone: PropTypes.func,
+	checkBoxNotDone: PropTypes.func,
+};
 
 
 const styles = StyleSheet.create({
