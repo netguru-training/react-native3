@@ -3,7 +3,6 @@ import {Text, View, StyleSheet} from 'react-native';
 const CheckBox = require('react-native-checkbox');
 
 export default class ListTask extends React.Component {
-// export const ListTask = ({ task }) => {
 	constructor(props) {
 		super(props);
 	}
