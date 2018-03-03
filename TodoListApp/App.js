@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View, Platform, Navigator, StatusBar } from 'react-native';
 import ListTask from './components/ListTask/ListTask';
 import { StackNavigator } from 'react-navigation';
+import DetailScreen from './DetailScreen';
 
 
 class App extends React.Component {
@@ -36,7 +37,7 @@ class App extends React.Component {
 
 export default StackNavigator({
   Home: {
-    screen: App,
+    screen: DetailScreen,
   },
 });
 
