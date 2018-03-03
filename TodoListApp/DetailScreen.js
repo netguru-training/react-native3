@@ -5,6 +5,14 @@ import { StackNavigator } from 'react-navigation';
 
 export default class DetailScreen extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state={
+            title: props.title,
+            description: props.description
+        };
+    }
+
     static navigationOptions = {
         title: 'Details',
         headerRight: (
@@ -20,15 +28,19 @@ export default class DetailScreen extends Component {
         return (
             <View style={{flex:1}}>
               <TextInput 
-              placeholder='Name'
-              style={styles.title}/>
+                onChangeText={(text)=>{this.setState({title: text})
+            console.log(this.state.description)
+        debugger}}
+                placeholder='Name'
+                style={styles.title}/>
 
               <View style={{height:2}}/>
 
               <TextInput 
-              placeholder= 'Description'
-              multiline={true}
-              style={styles.description
+                onChangeText={(text)=>{this.setState({description: text})}}
+                placeholder= 'Description'
+                multiline={true}
+                style={styles.description
                }/>
             </View>
         );
@@ -46,6 +58,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
-        fontSize: 15,
+        fontSize: 16,
     },
   });
