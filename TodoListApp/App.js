@@ -1,6 +1,6 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import { ListTask } from './components/ListTask/ListTask';
+import {FlatList, Platform, Navigator, StatusBar, StyleSheet, Text, View} from 'react-native';
+import ListTask from './components/ListTask/ListTask';
 
 
 export default class App extends React.Component {
@@ -11,7 +11,6 @@ export default class App extends React.Component {
 		this.state = {
 			tasks: this.sampleTasks()
 		}
-
 	}
 
 	sampleTasks() {
@@ -23,7 +22,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-    	<View>
+    	<View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
 				{/*<FlatList style={styles.container}>*/}
 					{this.state.tasks.map(task => <ListTask key={task.id} task={task} />)}
 				{/*</FlatList>*/}
