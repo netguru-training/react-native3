@@ -1,9 +1,10 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import { ListTask } from './components/ListTask/ListTask';
+import { StackNavigator } from 'react-navigation';
 
 
-export default class App extends React.Component {
+class App extends React.Component {
 
 	constructor() {
 		super();
@@ -31,6 +32,14 @@ export default class App extends React.Component {
     );
   }
 }
+
+
+
+export default StackNavigator({
+  Home: {
+    screen: App,
+  },
+});
 
 const styles = StyleSheet.create({
   container: {
