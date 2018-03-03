@@ -9,14 +9,13 @@ export default class ListTask extends Component {
     }
 
     onCheckboxChange = () => {
-        console.log(arguments);
-        this.props.checkBoxDone(this.props.task)
+        this.props.checkBoxDone(this.props.task);
     };
 
     render() {
         return (
             <View style={styles.listItem}>
-                <CheckBox containerStyle={styles.checkboxContainer} labelStyle={styles.checkboxLabel}/>
+                <CheckBox onChange={this.onCheckboxChange} containerStyle={styles.checkboxContainer} labelStyle={styles.checkboxLabel}/>
                 <Text style={styles.listItemText}>{this.props.task.name}</Text>
             </View>
         );
@@ -52,8 +51,4 @@ const styles = StyleSheet.create({
     },
 });
 
-ListTask.propTypes{
-    checkBoxDone: PropTypes.func,
-    checkBoxNotDone: PropTypes.func
-}
 

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View, Platform, Navigator, StatusBar} from 'react-native';
-import ListTask from './components/ListTask/ListTaskComponent';
+import {StyleSheet, Text, View, Platform, Navigator, StatusBar} from 'react-native';
 import {StackNavigator} from 'react-navigation';
-import {StyleSheet, View} from "react-native";
-import {Provider} from "react-redux";
-import store from "./redux/createStore";
-
+import ListTaskComponent from './components/ListTask/ListTaskComponent';
+import {Provider} from 'react-redux';
+import ListTaskContainer from './components/ListTask/ListTaskContainer';
+import configureStore from './redux/createStore';
+//
+const store = configureStore({});
 
 class App extends Component {
 
@@ -29,7 +30,7 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <View>
-                    {this.state.tasks.map(task => <ListTask key={task.id} task={task}/>)}
+                    {this.state.tasks.map(task => <ListTaskContainer key={task.id} task={task}/>)}
                 </View>
             </Provider>
         );

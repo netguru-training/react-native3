@@ -1,5 +1,4 @@
-import * as CheckBoxActions from "CheckBox/CheckBoxActions";
-import _ from "lodash";
+import * as CheckBoxActions from './CheckBox/CheckBoxActions';
 
 const initialState = {};
 
