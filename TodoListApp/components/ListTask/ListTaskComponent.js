@@ -9,14 +9,13 @@ export default class ListTaskComponent extends Component {
   }
 
   onCheckboxChange = () => {
+    const { checkBoxNotDone, checkBoxDone, task } = this.props;
 
-  	const{checkBoxNotDone, checkBoxDone, task} = this.props;
-
-    if(task.isDone) {
-    	checkBoxNotDone(task);
-		}else {
-    	checkBoxDone(task);
-		}
+    if (task.isDone) {
+      checkBoxNotDone(task);
+    } else {
+      checkBoxDone(task);
+    }
   };
 
   render() {
@@ -26,7 +25,7 @@ export default class ListTaskComponent extends Component {
           containerStyle={styles.checkboxContainer}
           labelStyle={styles.checkboxLabel}
           checked={this.props.task.isDone}
-					onChange={this.onCheckboxChange}
+          onChange={this.onCheckboxChange}
         />
         <Text style={styles.listItemText}>{this.props.task.name}</Text>
       </View>
@@ -35,10 +34,9 @@ export default class ListTaskComponent extends Component {
 }
 
 ListTaskComponent.propTypes = {
-	checkBoxDone: PropTypes.func,
-	checkBoxNotDone: PropTypes.func,
+  checkBoxDone: PropTypes.func,
+  checkBoxNotDone: PropTypes.func
 };
-
 
 const styles = StyleSheet.create({
   listItem: {

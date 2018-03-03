@@ -1,9 +1,9 @@
 import * as CheckBoxActions from "./CheckBox/CheckBoxActions";
-import _ from 'lodash';
+import _ from "lodash";
 const initialState = {};
 
 const TaskReducer = (state = initialState, action) => {
-	let task;
+  let task;
   switch (action.type) {
     case CheckBoxActions.CHANGE_CHECKBOX.DONE:
       console.log("changeCheckboc.done", action);
@@ -16,8 +16,8 @@ const TaskReducer = (state = initialState, action) => {
 
     case CheckBoxActions.CHANGE_CHECKBOX.NOT_DONE:
       console.log("changeCheckboc.notdone", state);
-			task = action.task;
-			task.isDone = false;
+      task = action.task;
+      task.isDone = false;
       return {
         ...state
       };
