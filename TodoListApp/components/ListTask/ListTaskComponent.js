@@ -9,9 +9,14 @@ export default class ListTaskComponent extends Component {
   }
 
   onCheckboxChange = () => {
-  	console.log('adsd', arguments);
-  	
-    this.props.checkBoxDone(this.props.task);
+
+  	const{checkBoxNotDone, checkBoxDone, task} = this.props;
+
+    if(task.isDone) {
+    	checkBoxNotDone(task);
+		}else {
+    	checkBoxDone(task);
+		}
   };
 
   render() {
