@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View, Platform, Navigator, StatusBar } from 'react-native';
 import ListTask from './components/ListTask/ListTask';
 import { StackNavigator } from 'react-navigation';
-import DetailScreen from './DetailScreen';
+import DetailScreen from './components/DetailScreen/DetailScreen';
 
 
 class App extends React.Component {
