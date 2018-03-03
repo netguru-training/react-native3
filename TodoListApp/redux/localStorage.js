@@ -1,10 +1,17 @@
-export const loadState = () => {
+import {AsyncStorage} from 'react-native';
+
+
+export const loadState = async () => {
+
     try {
-        const serializedState = localStorage.getItem("state");
-        if (serializedState === null) {
-            return undefined;
-        }
-        return JSON.parse(serializedState);
+        const serializedStatePromise = AsyncStorage.getItem("state");
+        const serializedState = await serializedStatePromise;
+				console.log('___ czytanie z asynstorage', serializedState);
+				if (serializedState === null) {
+					return undefined;
+				}
+				return JSON.parse(serializedState);
+
     } catch (err) {
         return undefined;
     }
@@ -13,6 +20,9 @@ export const loadState = () => {
 export const saveState = state => {
     try {
         const serializedState = JSON.stringify(state);
-        localStorage.setItem("state", serializedState);
-    } catch (err) {}
+			AsyncStorage.setItem("state", serializedState);
+			console.log('saving AsynSTorage', serializedState);
+    } catch (err) {
+    	console.log('error saving state', err);
+		}
 };

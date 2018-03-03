@@ -6,7 +6,6 @@ import {Provider} from 'react-redux';
 import ListTaskContainer from './components/ListTask/ListTaskContainer';
 import configureStore from './redux/createStore';
 //
-const store = configureStore({});
 import DetailScreen from './DetailScreen';
 
 
@@ -16,8 +15,13 @@ class App extends React.Component {
 		super();
 
 		this.state = {
-			tasks: this.sampleTasks()
-		}
+			tasks: this.sampleTasks(),
+			store: null,
+		};
+
+		configureStore({}).then(store => {
+			this.setState({ store });
+		});
 	}
 
 	sampleTasks() {
@@ -29,13 +33,13 @@ class App extends React.Component {
 
   render() {
     return (
-			<Provider store={store}>
+			(this.state.store && <Provider store={this.state.store}>
 				<View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
 					{/*<FlatList style={styles.container}>*/}
 						{this.state.tasks.map(task => <ListTaskContainer key={task.id} task={task} />)}
 					{/*</FlatList>*/}
 				</View>
-			</Provider>
+			</Provider>)
     );
   }
 }
