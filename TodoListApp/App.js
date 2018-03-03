@@ -1,50 +1,53 @@
-import React from 'react';
-import { FlatList, StyleSheet, Text, View, Platform, Navigator, StatusBar } from 'react-native';
-import ListTask from './components/ListTask/ListTask';
-import { StackNavigator } from 'react-navigation';
+import React, {Component} from 'react';
+import {FlatList, StyleSheet, Text, View, Platform, Navigator, StatusBar} from 'react-native';
+import ListTask from './components/ListTask/ListTaskComponent';
+import {StackNavigator} from 'react-navigation';
+import {StyleSheet, View} from "react-native";
+import {Provider} from "react-redux";
+import store from "./redux/createStore";
 
 
-class App extends React.Component {
+class App extends Component {
 
-	constructor() {
-		super();
+    constructor() {
+        super();
 
-		this.state = {
-			tasks: this.sampleTasks()
-		}
-	}
+        this.state = {
+            tasks: this.sampleTasks()
+        }
 
-	sampleTasks() {
-		return [
-			{ id: 1, name: 'Pierwszy task', description: 'Opis taska', isDone: false },
-			{ id: 2, name: 'Drugi lecz zrobiony', description: 'Task szybko wykonany', isDone: true },
-		];
-	}
+    }
 
-  render() {
-    return (
-    	<View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
-				{/*<FlatList style={styles.container}>*/}
-					{this.state.tasks.map(task => <ListTask key={task.id} task={task} />)}
-				{/*</FlatList>*/}
-			</View>
-    );
-  }
+    sampleTasks() {
+        return [
+            {id: 1, name: 'Pierwszy task', description: 'Opis taska', isDone: false},
+            {id: 2, name: 'Drugi lecz zrobiony', description: 'Task szybko wykonany', isDone: true},
+        ];
+    }
+
+    render() {
+        return (
+            <Provider store={store}>
+                <View>
+                    {this.state.tasks.map(task => <ListTask key={task.id} task={task}/>)}
+                </View>
+            </Provider>
+        );
+    }
 }
 
 
-
 export default StackNavigator({
-  Home: {
-    screen: App,
-  },
+    Home: {
+        screen: App,
+    },
 });
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
