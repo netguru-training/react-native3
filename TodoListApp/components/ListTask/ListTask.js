@@ -14,7 +14,7 @@ export default class ListTask extends React.Component {
 	render() {
 		return (
 			<View style={styles.listItem}>
-				<CheckBox containerStyle={styles.checkboxContainer} labelStyle={styles.checkboxLabel} />
+				<CheckBox containerStyle={styles.checkboxContainer} labelStyle={styles.checkboxLabel} checked={this.props.task.isDone} />
 				<Text style={styles.listItemText}>{this.props.task.name}</Text>
 			</View>
 		);
