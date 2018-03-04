@@ -15,15 +15,17 @@ export default class App extends React.Component {
       storeReady: false,
     };
 
-    this.store = configureStore({});
+    this.store = configureStore({
+
+    });
   }
 
   componentDidMount() {
     loadState().then(persistedState => {
-      this.store.dispatch({
-        type: DATALOADING.LOAD_ALL,
-        data: persistedState
-      });
+      // this.store.dispatch({
+      //   type: DATALOADING.LOAD_ALL,
+      //   data: persistedState
+      // });
 
       this.store.subscribe(
         throttle(() => {

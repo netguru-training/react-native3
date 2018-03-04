@@ -3,27 +3,34 @@ import {FlatList, StyleSheet} from "react-native";
 import PropTypes from "prop-types";
 import TaskComponent from "../Task/TaskComponent";
 
-const TasksListComponent = (tasks) => {
+const TasksListComponent = (props) => {
     const handleCheckBoxDone = (task) => {
-        this.props.checkBoxDone(task);
+        props.checkBoxDone(task);
     };
 
     const handleCheckBoxNotDone = (task) => {
-        this.props.checkBoxNotDone(task);
+        props.checkBoxNotDone(task);
     };
 
-    const renderItem = ({item}) => (
-        <TaskComponent
+    const renderItem = ({item}) => {
+        console.log('rendering ', item);
+        return (
+          <TaskComponent
             task={item}
             checkBoxDone={handleCheckBoxDone}
             checkBoxNotDone={handleCheckBoxNotDone}
-        />
-    );
+          />
+        );
+    };
+
+    // console.log('before flatlist', tasks);
+    //
+
 
     return (
         <FlatList
             renderItem={renderItem}
-            data={tasks}
+            data={props.tasks}
         />
     )
 };
