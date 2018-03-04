@@ -22,10 +22,10 @@ export default class App extends React.Component {
 
   componentDidMount() {
     loadState().then(persistedState => {
-      // this.store.dispatch({
-      //   type: DATALOADING.LOAD_ALL,
-      //   data: persistedState
-      // });
+      this.store.dispatch({
+        type: DATALOADING.LOAD_ALL,
+        data: persistedState
+      });
 
       this.store.subscribe(
         throttle(() => {
@@ -41,9 +41,10 @@ export default class App extends React.Component {
     if(!this.state.storeReady) {
       return <Text>loader</Text>
     }
+
     return (
       <Provider store={this.store}>
-        <Nav/>
+        <Nav style={styles.nav}/>
       </Provider>
 
     );
@@ -51,10 +52,8 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  nav: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
   }
 });
