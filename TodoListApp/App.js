@@ -1,18 +1,10 @@
-
-import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  Navigator,
-  StatusBar
-} from "react-native";
-import { StackNavigator } from "react-navigation";
-import { Provider } from "react-redux";
-import ListTaskContainer from "./components/ListTask/ListTaskContainer";
+import React, {Component} from "react";
+import {Platform, StyleSheet, Text, View} from "react-native";
+import {Provider} from "react-redux";
 import configureStore from "./redux/createStore";
-import DetailScreen from "./components/DetailScreen/DetailScreen";
+import {DATALOADING} from "./redux/Task/CheckBox/CheckBoxActions";
+import {loadState, saveState} from "./redux/localStorage";
+import throttle from "lodash/throttle";
 import Nav from "./Navigation";
 
 export default class App extends React.Component {
@@ -20,51 +12,38 @@ export default class App extends React.Component {
     super();
 
     this.state = {
-      tasks: {},
-      store: null
+      storeReady: false,
     };
 
-    configureStore({
-      Task: this.sampleTasks()
-    }).then(store => {
-    	this.setState({ store });
-			this.setState({ tasks: store.getState().Task });
+    this.store = configureStore({});
+  }
+
+  componentDidMount() {
+    loadState().then(persistedState => {
+      this.store.dispatch({
+        type: DATALOADING.LOAD_ALL,
+        data: persistedState
+      });
+
+      this.store.subscribe(
+        throttle(() => {
+          saveState(this.store.getState());
+        }, 1000)
+      );
+
+      this.setState({storeReady: true});
     });
   }
 
-  getTaskList() {
-		// console.log('evaluating getTaskList', this.state.store.Task);
-		if(this.state.tasks) {
-  		return Object.values(this.state.tasks);
-		}
-		return [];
-  }
-
-  sampleTasks() {
-		return {
-			1: {
-				id: 1,
-				name: "Pierwszy task",
-				description: "Opis taska",
-				isDone: false
-			},
-
-			2: {
-				id: 2,
-				name: "Drugi lecz zrobiony",
-				description: "Task szybko wykonany",
-				isDone: true
-			}
-		}
-	}
-
   render() {
+    if(!this.state.storeReady) {
+      return <Text>loader</Text>
+    }
     return (
-      (
-				this.state.store && <Provider store={this.state.store}>
-         <Nav/>
-        </Provider>
-      )
+      <Provider store={this.store}>
+        <Nav/>
+      </Provider>
+
     );
   }
 }
