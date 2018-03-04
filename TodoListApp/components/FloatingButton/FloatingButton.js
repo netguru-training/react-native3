@@ -1,9 +1,8 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
+import {Text, TouchableOpacity, View, StyleSheet, Image} from "react-native";
 
 const FloatingButton = () => {
     onPress = () => {
-        concole.log('floatingButton');
         this.props.navigation.navigate('Details', );
     };
 
@@ -13,7 +12,7 @@ const FloatingButton = () => {
             style={styles.button}
             onPress={this.onPress}
         >
-            <Text> Touch Here </Text>
+            <Text style={styles.text}> Add task </Text>
         </TouchableOpacity>
     </View>
   )
@@ -23,16 +22,19 @@ FloatingButton.propTypes = {};
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 10
+        position: 'absolute',
+        right: 0,
+        bottom: 0
     },
     button: {
-        width: 150,
-        height: 150,
-        borderRadius: 150/2,
-        backgroundColor: '#00BCD4'
+        width: 75,
+        height: 75,
+        borderRadius: 75/2,
+        backgroundColor: '#00D664'
+    },
+    text: {
+        color: 'white',
+        fontWeight: 'bold'
     }
 });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, StyleSheet} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
 import PropTypes from "prop-types";
 import TaskComponent from "../Task/TaskComponent";
 import FloatingButton from "../FloatingButton/FloatingButton";
@@ -32,7 +32,7 @@ const TasksListComponent = (props) => {
                 renderItem={renderItem}
                 data={props.tasks}
             />
-            <FloatingButton/>
+            <FloatingButton navigation={props.navigation}/>
         </View>
     )
 };
