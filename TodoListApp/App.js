@@ -13,8 +13,9 @@ import { Provider } from "react-redux";
 import ListTaskContainer from "./components/ListTask/ListTaskContainer";
 import configureStore from "./redux/createStore";
 import DetailScreen from "./components/DetailScreen/DetailScreen";
+import Nav from "./Navigation";
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor() {
     super();
 
@@ -61,25 +62,12 @@ class App extends React.Component {
     return (
       (
 				this.state.store && <Provider store={this.state.store}>
-          <View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
-            {/*<FlatList style={styles.container}>*/}
-            {this.getTaskList().map(task => (
-              <ListTaskContainer key={task.id} task={task} />
-            ))}
-            {/*</FlatList>*/}
-          </View>
+         <Nav/>
         </Provider>
       )
     );
   }
 }
-
-export default StackNavigator({
-  Home: {
-    // screen: DetailScreen,
-    screen: App
-	},
-});
 
 const styles = StyleSheet.create({
   container: {
