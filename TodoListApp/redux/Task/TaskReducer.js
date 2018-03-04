@@ -1,35 +1,50 @@
 import * as CheckBoxActions from "./CheckBox/CheckBoxActions";
 import _ from "lodash";
-const initialState = {};
+import {DATALOADING} from "./CheckBox/CheckBoxActions";
+
+const initialState = [
+  {id: 1, name: "Test", description: "asdsa", isDone: false}
+];
 
 const TaskReducer = (state = initialState, action) => {
-  let task;
   switch (action.type) {
     case CheckBoxActions.CHANGE_CHECKBOX.DONE:
-      console.log("changeCheckboc.done", action);
-      task = action.task;
-      task.isDone = true;
-      // console.log('state po zmianie:', state);
-      return {
-        ...state
-      };
+
+      return state.map(task => {
+        if (task.id === action.task.id) {
+          task.isDone = true;
+        }
+        return task;
+      });
+
 
     case CheckBoxActions.CHANGE_CHECKBOX.NOT_DONE:
-      console.log("changeCheckboc.notdone", state);
-      task = action.task;
-      task.isDone = false;
-      return {
-        ...state
-      };
+      return state.map(task => {
+        if (task.id === action.task.id) {
+          task.isDone = false;
+        }
+        return task;
+      });
 
+    case DATALOADING.LOAD_ALL:
+      console.log(DATALOADING.LOAD_ALL, action.data);
+      return action.data && action.data.Task && action.data.Task.tasks || [];
     default:
       return state;
   }
 };
 
+// selectors
+
+
+
 // todo: zmienic to na Tasks
 export const TASK_STATE_KEY = "Task";
 
 // Selectors
+export const getTasks = state => {
+  console.log('state in  reducer', state);
+  return _.get(state, [TASK_STATE_KEY]);
+};
 
 export default TaskReducer;

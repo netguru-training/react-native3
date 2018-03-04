@@ -1,83 +1,60 @@
 import React, {Component} from "react";
-import {Platform, StyleSheet, View} from "react-native";
-import {StackNavigator} from "react-navigation";
+import {Platform, StyleSheet, Text, View} from "react-native";
 import {Provider} from "react-redux";
-import ListTaskContainer from "./components/ListTask/ListTaskContainer";
 import configureStore from "./redux/createStore";
-import FloatingButton from "./components/FloatingButton/FloatingButton";
+import {DATALOADING} from "./redux/Task/CheckBox/CheckBoxActions";
+import {loadState, saveState} from "./redux/localStorage";
+import throttle from "lodash/throttle";
+import Nav from "./Navigation";
 
-class App extends React.Component {
-    constructor() {
-        super();
+export default class App extends React.Component {
+  constructor() {
+    super();
 
-        this.state = {
-            tasks: {},
-            store: null
-        };
+    this.state = {
+      storeReady: false,
+    };
 
-        configureStore({
-            Task: this.sampleTasks()
-        }).then(store => {
-            this.setState({store});
-            this.setState({tasks: store.getState().Task});
-        });
+    this.store = configureStore({
+
+    });
+  }
+
+  componentDidMount() {
+    loadState().then(persistedState => {
+      // this.store.dispatch({
+      //   type: DATALOADING.LOAD_ALL,
+      //   data: persistedState
+      // });
+
+      this.store.subscribe(
+        throttle(() => {
+          saveState(this.store.getState());
+        }, 1000)
+      );
+
+      this.setState({storeReady: true});
+    });
+  }
+
+  render() {
+    if(!this.state.storeReady) {
+      return <Text>loader</Text>
     }
+    return (
+      <Provider store={this.store}>
+        <Nav/>
+      </Provider>
 
-    getTaskList() {
-        if (this.state.tasks) {
-            return Object.values(this.state.tasks);
-        }
-        return [];
-    }
-
-    sampleTasks() {
-        return {
-            1: {
-                id: 1,
-                name: "Pierwszy task",
-                description: "Opis taska",
-                isDone: false
-            },
-
-            2: {
-                id: 2,
-                name: "Drugi lecz zrobiony",
-                description: "Task szybko wykonany",
-                isDone: true
-            }
-        };
-    }
-
-    render() {
-        return (
-            this.state.store && (
-                <Provider store={this.state.store}>
-                    <View style={{marginTop: Platform.select({ios: 0, android: 20})}}>
-                        {/*<FlatList style={styles.container}>*/}
-                        {this.getTaskList().map(task => (
-                            <ListTaskContainer key={task.id} task={task}/>
-                        ))}
-                        {/*</FlatList>*/}
-                        <FloatingButton/>
-                    </View>
-                </Provider>
-            )
-        );
-    }
+    );
+  }
 }
 
-export default StackNavigator({
-    Home: {
-        // screen: DetailScreen,
-        screen: App
-    },
-});
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center"
-    }
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
