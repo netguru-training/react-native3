@@ -41,6 +41,7 @@ export default class App extends React.Component {
     if(!this.state.storeReady) {
       return <Text>loader</Text>
     }
+
     return (
       <Provider store={this.store}>
         <Nav style={styles.nav}/>
