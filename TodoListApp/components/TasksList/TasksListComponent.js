@@ -3,7 +3,7 @@ import {FlatList, StyleSheet} from "react-native";
 import PropTypes from "prop-types";
 import TaskComponent from "../Task/TaskComponent";
 
-const TasksListComponent = (tasks) => {
+const TasksListComponent = ({task}) => {
     const handleCheckBoxDone = (task) => {
         this.props.checkBoxDone(task);
     };
@@ -23,7 +23,7 @@ const TasksListComponent = (tasks) => {
     return (
         <FlatList
             renderItem={renderItem}
-            data={tasks}
+            data={task}
         />
     )
 };
@@ -37,7 +37,7 @@ TasksListComponent.propTypes = {
 const styles = StyleSheet.create({
     listItems: {
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         padding: 20
     }
 });
