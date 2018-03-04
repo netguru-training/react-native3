@@ -1,4 +1,5 @@
 import * as CheckBoxActions from "./CheckBox/CheckBoxActions";
+import * as TaskAction from './TaskActions'
 import _ from "lodash";
 import {DATALOADING} from "./CheckBox/CheckBoxActions";
 
@@ -17,7 +18,6 @@ const TaskReducer = (state = initialState, action) => {
         return task;
       });
 
-
     case CheckBoxActions.CHANGE_CHECKBOX.NOT_DONE:
       return state.map(task => {
         if (task.id === action.task.id) {
@@ -26,17 +26,29 @@ const TaskReducer = (state = initialState, action) => {
         return task;
       });
 
+    case TaskAction.TASK.SAVE:
+      task = action.task;
+      currentTask = state.find(el => el.id == action.task.id);
+
+      if (currentTask !== null) {
+          return state.map(task => {
+            if (task.id !== action.task.id) {
+              return task;
+            } else {
+              return action.task;
+            }})
+        } else {
+          return [...state, action.task]
+        }
+
     case DATALOADING.LOAD_ALL:
       console.log(DATALOADING.LOAD_ALL, action.data);
       return action.data && action.data.Task && action.data.Task.tasks || [];
+
     default:
       return state;
   }
 };
-
-// selectors
-
-
 
 // todo: zmienic to na Tasks
 export const TASK_STATE_KEY = "Task";
