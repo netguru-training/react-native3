@@ -8,4 +8,7 @@ export default StackNavigator({
     Home: {
       screen: TasksListContainer
       },
+    Details: {
+        screen: DetailScreen
+    }
   });
