@@ -1,7 +1,5 @@
 import * as CheckBoxActions from "./CheckBox/CheckBoxActions";
 import * as TaskAction from './TaskActions'
-import _ from 'lodash';
-const initialState = {};
 import _ from "lodash";
 import {DATALOADING} from "./CheckBox/CheckBoxActions";
 
@@ -32,12 +30,17 @@ const TaskReducer = (state = initialState, action) => {
 
       if (currentTask !== null) {
         state.Task[task.id] = task;
-        return {
-          ...state
-        };
-      } else {
-
-      }
+          state.tasks.map(task => {
+            if (task.id !== action.task.id) {
+              return task;
+            } else {
+              return action.task;
+            }})
+        } else {
+          newTaskArray = state.task;
+          newTaskArray.push(action.task);
+          return newTaskArray;
+        }
 
     case DATALOADING.LOAD_ALL:
       console.log(DATALOADING.LOAD_ALL, action.data);
