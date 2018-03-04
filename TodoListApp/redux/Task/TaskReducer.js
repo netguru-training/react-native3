@@ -1,4 +1,5 @@
 import * as CheckBoxActions from "./CheckBox/CheckBoxActions";
+import * as TaskAction from './TaskActions'
 import _ from 'lodash';
 const initialState = {};
 
@@ -9,7 +10,7 @@ const TaskReducer = (state = initialState, action) => {
       console.log("changeCheckboc.done", action);
       task = action.task;
       task.isDone = true;
-      // console.log('state po zmianie:', state);
+
       return {
         ...state
       };
@@ -22,10 +23,24 @@ const TaskReducer = (state = initialState, action) => {
         ...state
       };
 
+    case TaskAction.TASK.SAVE:
+      task = action.task;
+      currentTask = state.Task[task.id];
+
+      if (currentTask !== null) {
+        state.Task[task.id] = task;
+        return {
+          ...state
+        };
+      } else {
+
+      }
+
     default:
       return state;
   }
 };
+
 
 // todo: zmienic to na Tasks
 export const TASK_STATE_KEY = "Task";
