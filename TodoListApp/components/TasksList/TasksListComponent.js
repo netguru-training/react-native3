@@ -12,12 +12,15 @@ const TasksListComponent = (props) => {
     props.checkBoxNotDone(task);
   };
 
+
+
   const renderItem = ({item}) => {
     return (
       <TaskComponent
         task={item}
         checkBoxDone={handleCheckBoxDone}
         checkBoxNotDone={handleCheckBoxNotDone}
+        navigation={props.navigation}
       />
     );
   };
@@ -27,6 +30,7 @@ const TasksListComponent = (props) => {
     <FlatList
       renderItem={renderItem}
       data={props.tasks}
+
     />
   )
 };
