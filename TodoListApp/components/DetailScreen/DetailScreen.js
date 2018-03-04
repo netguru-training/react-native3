@@ -17,9 +17,8 @@ export default class DetailScreen extends Component {
     }
 
     save = () => {
-        console.log(this.state.task);
         this.props.saveTask(this.state.task);
-        //todo save data here
+        this.props.navigation.goBack();
     };
 
 
@@ -59,6 +58,7 @@ export default class DetailScreen extends Component {
                     }
                     this.setState({task})}
                 }
+                value= {this.state.task.name}
                 placeholder='Name'
                 style={styles.title}/>
 
@@ -74,6 +74,7 @@ export default class DetailScreen extends Component {
                 }
                 placeholder= 'Description'
                 multiline={true}
+                value= {this.state.task.description}
                 style={styles.description
                }/>
             </View>
