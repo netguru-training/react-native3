@@ -27,18 +27,18 @@ const TaskReducer = (state = initialState, action) => {
       });
 
     case TaskAction.TASK.SAVE:
-      task = action.task;
-      currentTask = state.find(el => el.id == action.task.id);
+      const actionTask = action.task;
+      const currentTask = state.find(el => el.id === actionTask.id);
 
       if (currentTask !== null) {
           return state.map(task => {
-            if (task.id !== action.task.id) {
+            if (task.id !== actionTask.id) {
               return task;
             } else {
-              return action.task;
+              return actionTask;
             }})
         } else {
-          return [...state, action.task]
+          return [...state, action.task];
         }
 
     case DATALOADING.LOAD_ALL:
