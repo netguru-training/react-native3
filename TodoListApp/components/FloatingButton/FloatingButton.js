@@ -1,16 +1,17 @@
 import React from "react";
+const uuidv1 = require('uuid/v1');
 import {Text, TouchableOpacity, View, StyleSheet, Image} from "react-native";
 
 const FloatingButton = (props) => {
   const onPress = () => {
-    props.navigation.navigate('Details',);
+    props.navigation.navigate('Details', { task: {id: uuidv1() }, });
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={this.onPress}
+        onPress={onPress}
       >
         <Text style={styles.text}>+</Text>
       </TouchableOpacity>
@@ -40,7 +41,8 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontWeight: 'normal',
-    fontSize: 50
+    fontSize: 50,
+    marginTop: -8,
   }
 });
 
