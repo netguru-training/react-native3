@@ -31,6 +31,7 @@ const TasksListComponent = (props) => {
             <FlatList
                 renderItem={renderItem}
                 data={props.tasks}
+                keyExtractor={(item) => item.id}
             />
             <FloatingButton navigation={props.navigation}/>
         </View>
