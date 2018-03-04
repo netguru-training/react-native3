@@ -19,7 +19,7 @@ export default class TaskComponent extends Component {
     };
 
     handleOnPress = () => {
-        this.props.navigation.navigate('Details');
+        this.props.navigation.navigate('Details', {task:this.props.task});
     };
 
     render() {

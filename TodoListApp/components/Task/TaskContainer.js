@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
     checkBoxNotDone: task => dispatch(actions.checkBox.notDone(task))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskComponent);

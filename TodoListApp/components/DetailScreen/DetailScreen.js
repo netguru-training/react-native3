@@ -8,16 +8,17 @@ export default class DetailScreen extends Component {
     constructor(props) {
         super(props);
         this.state={
-            title: props.title,
-            description: props.description
+            task: props.navigation.state.params.task
         };
     }
 
     componentWillMount() {
-        this.props.navigation.setParams({ saveAction: this.showSaveDialog, });
+        this.props.navigation.setParams({ saveAction: this.save, });
     }
 
     save = () => {
+        console.log(this.state.task);
+        this.props.saveTask(this.state.task);
         //todo save data here
     };
 
@@ -28,7 +29,7 @@ export default class DetailScreen extends Component {
             null,
             [
               {text: 'Discard', onPress: () => this.props.navigation.goBack()},
-              {text: 'Cancel', onPress: () => {}},
+              {text: 'Cancel', onPress: () => {console.log(this.state.task)}},
             ],
             { cancelable: false }
           )
@@ -51,14 +52,26 @@ export default class DetailScreen extends Component {
         return (
             <View style={{flex:1}}>
               <TextInput 
-                onChangeText={(text)=>{this.setState({title: text})}}
+                onChangeText={(text)=>{ 
+                    const task = {
+                        ...this.state.task,
+                        title: text
+                    }
+                    this.setState({task})}
+                }
                 placeholder='Name'
                 style={styles.title}/>
 
               <View style={{height:2}}/>
 
               <TextInput 
-                onChangeText={(text)=>{this.setState({description: text})}}
+                onChangeText={(text)=>{ 
+                    const task = {
+                        ...this.state.task,
+                        description: text
+                    }
+                    this.setState({task})}
+                }
                 placeholder= 'Description'
                 multiline={true}
                 style={styles.description

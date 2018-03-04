@@ -28,20 +28,18 @@ const TaskReducer = (state = initialState, action) => {
 
     case TaskAction.TASK.SAVE:
       task = action.task;
-      currentTask = state.Task[task.id];
+      currentTask = null;
 
       if (currentTask !== null) {
         state.Task[task.id] = task;
-          state.tasks.map(task => {
+          state.map(task => {
             if (task.id !== action.task.id) {
               return task;
             } else {
               return action.task;
             }})
         } else {
-          newTaskArray = state.task;
-          newTaskArray.push(action.task);
-          return newTaskArray;
+          return [...state, action.task]
         }
 
     case DATALOADING.LOAD_ALL:
