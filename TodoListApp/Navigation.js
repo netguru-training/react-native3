@@ -6,6 +6,6 @@ import React, {Component} from "react";
 
 export default StackNavigator({
     Home: {
-      screen: TasksListContainer
+      screen: DetailScreen
       },
   });
