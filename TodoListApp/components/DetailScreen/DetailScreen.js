@@ -55,7 +55,7 @@ export default class DetailScreen extends Component {
                 onChangeText={(text)=>{ 
                     const task = {
                         ...this.state.task,
-                        title: text
+                        name: text
                     }
                     this.setState({task})}
                 }

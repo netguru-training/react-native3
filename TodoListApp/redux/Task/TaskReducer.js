@@ -28,11 +28,10 @@ const TaskReducer = (state = initialState, action) => {
 
     case TaskAction.TASK.SAVE:
       task = action.task;
-      currentTask = null;
+      currentTask = state.find(el => el.id == action.task.id);
 
       if (currentTask !== null) {
-        state.Task[task.id] = task;
-          state.map(task => {
+          return state.map(task => {
             if (task.id !== action.task.id) {
               return task;
             } else {
