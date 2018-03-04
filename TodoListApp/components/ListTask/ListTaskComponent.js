@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
 import PropTypes from "prop-types";
 const CheckBox = require("react-native-checkbox");
 
@@ -18,8 +18,13 @@ export default class ListTaskComponent extends Component {
     }
   };
 
+  handleOnPress = () => {
+    this.props.navigation.navigate('Details');
+  }
+
   render() {
     return (
+      <TouchableHighlight onPress= {this.handleOnPress} >
       <View style={styles.listItem}>
         <CheckBox
           containerStyle={styles.checkboxContainer}
@@ -29,6 +34,7 @@ export default class ListTaskComponent extends Component {
         />
         <Text style={styles.listItemText}>{this.props.task.name}</Text>
       </View>
+      </TouchableHighlight>
     );
   }
 }

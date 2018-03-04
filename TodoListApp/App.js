@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import {
   StyleSheet,
@@ -11,8 +12,7 @@ import { StackNavigator } from "react-navigation";
 import { Provider } from "react-redux";
 import ListTaskContainer from "./components/ListTask/ListTaskContainer";
 import configureStore from "./redux/createStore";
-//
-import DetailScreen from "./DetailScreen";
+import DetailScreen from "./components/DetailScreen/DetailScreen";
 
 class App extends React.Component {
   constructor() {
@@ -78,7 +78,7 @@ export default StackNavigator({
   Home: {
     // screen: DetailScreen,
     screen: App
-  }
+	},
 });
 
 const styles = StyleSheet.create({
