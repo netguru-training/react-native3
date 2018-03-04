@@ -3,7 +3,8 @@ import {Text, TouchableOpacity, View} from "react-native";
 
 const FloatingButton = () => {
     onPress = () => {
-        console.log('sth')
+        concole.log('floatingButton');
+        this.props.navigation.navigate('Details', );
     };
 
   return (
