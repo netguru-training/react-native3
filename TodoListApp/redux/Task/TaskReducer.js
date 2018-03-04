@@ -39,6 +39,9 @@ const TaskReducer = (state = initialState, action) => {
 export const TASK_STATE_KEY = "Task";
 
 // Selectors
-export const getTasks = state => _.get(state, [TASK_STATE_KEY]);
+export const getTasks = state => {
+  console.log('state in  reducer', state);
+  return _.get(state, [TASK_STATE_KEY]);
+};
 
 export default TaskReducer;
