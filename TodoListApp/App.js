@@ -5,7 +5,7 @@ import configureStore from "./redux/createStore";
 import {DATALOADING} from "./redux/Task/CheckBox/CheckBoxActions";
 import {loadState, saveState} from "./redux/localStorage";
 import throttle from "lodash/throttle";
-import Nav from "Navigation";
+import Nav from "./Navigation";
 
 export default class App extends React.Component {
   constructor() {
@@ -36,32 +36,6 @@ export default class App extends React.Component {
       console.log('finished');
     });
   }
-  //
-  // getTaskList() {
-  //   const state = this.store.getState();
-  //   if (state.Task) {
-  //     return Object.values(state.Task);
-  //   }
-  //   return [];
-  // }
-
-  // sampleTasks() {
-  //   return {
-  //     1: {
-  //       id: 1,
-  //       name: "Pierwszy task",
-  //       description: "Opis taska",
-  //       isDone: false
-  //     },
-  //
-  //     2: {
-  //       id: 2,
-  //       name: "Drugi lecz zrobiony",
-  //       description: "Task szybko wykonany",
-  //       isDone: true
-  //     }
-  //   };
-  // }
 
   render() {
     if(!this.state.storeReady) {
@@ -73,7 +47,6 @@ export default class App extends React.Component {
           <View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
             <Nav/>
           </View>
-
         </Provider>
       )
     );

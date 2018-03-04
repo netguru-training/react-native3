@@ -9,7 +9,6 @@ export default class TaskComponent extends Component {
     }
 
     onCheckboxChange = () => {
-
         const{checkBoxNotDone, checkBoxDone, task} = this.props;
 
         if(task.isDone) {
@@ -43,6 +42,7 @@ export default class TaskComponent extends Component {
 TaskComponent.propTypes = {
     checkBoxDone: PropTypes.func,
     checkBoxNotDone: PropTypes.func,
+    task: PropTypes.any,
 };
 
 
