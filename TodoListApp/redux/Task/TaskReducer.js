@@ -3,13 +3,15 @@ import * as TaskAction from './TaskActions'
 import _ from "lodash";
 import {DATALOADING} from "./CheckBox/CheckBoxActions";
 
-const initialState = [];
+const initialState = [
+  {id: 1, name: "Test", description: "asdsa", isDone: false}
+];
 
 const TaskReducer = (state = initialState, action) => {
   switch (action.type) {
     case CheckBoxActions.CHANGE_CHECKBOX.DONE:
 
-      return state.tasks.map(task => {
+      return state.map(task => {
         if (task.id === action.task.id) {
           task.isDone = true;
         }
@@ -17,7 +19,7 @@ const TaskReducer = (state = initialState, action) => {
       });
 
     case CheckBoxActions.CHANGE_CHECKBOX.NOT_DONE:
-      return state.tasks.map(task => {
+      return state.map(task => {
         if (task.id === action.task.id) {
           task.isDone = false;
         }
