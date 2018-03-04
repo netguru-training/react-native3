@@ -43,7 +43,7 @@ export default class App extends React.Component {
     }
     return (
       <Provider store={this.store}>
-        <Nav/>
+        <Nav style={styles.nav}/>
       </Provider>
 
     );
@@ -51,10 +51,8 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  nav: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
   }
 });

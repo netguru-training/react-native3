@@ -27,7 +27,7 @@ const TasksListComponent = (props) => {
 
     // todo: add key obtainer for each item
     return (
-        <View>
+        <View style={styles.listView}>
             <FlatList
                 renderItem={renderItem}
                 data={props.tasks}
@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         padding: 20
+    },
+
+    listView: {
+      display: 'flex',
+      height: '100%',
     }
 });
 
