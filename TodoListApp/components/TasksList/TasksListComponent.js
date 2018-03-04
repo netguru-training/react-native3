@@ -6,12 +6,10 @@ const CheckBox = require("react-native-checkbox");
 
 import TaskContainer from "../Task/TaskContainer"
 
-const TasksListComponent = (tasks) => {
+const TasksListComponent = ({tasks}) => {
     return (
         <View style={styles.listItems}>
-            {_.forEach(tasks, task => <TaskContainer task={task}/>
-            )}
-            }
+            {tasks.map(task => <TaskContainer key={task.id} task={task} /> )}
         </View>
     )
 };
