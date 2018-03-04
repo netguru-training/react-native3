@@ -13,28 +13,44 @@ import { Provider } from "react-redux";
 import ListTaskContainer from "./components/ListTask/ListTaskContainer";
 import configureStore from "./redux/createStore";
 import DetailScreen from "./components/DetailScreen/DetailScreen";
+import {DATALOADING} from "./redux/Task/CheckBox/CheckBoxActions";
+import {loadState, saveState} from "./redux/localStorage";
+import throttle from "lodash/throttle";
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      tasks: {},
-      store: null
+      storeReady: false,
     };
 
-    configureStore({
-      Task: this.sampleTasks()
-    }).then(store => {
-      this.setState({ store });
-      this.setState({ tasks: store.getState().Task });
+    this.store = configureStore({});
+  }
+
+  componentDidMount() {
+    loadState().then(persistedState => {
+      console.log('persisted state', persistedState);
+      this.store.dispatch({
+        type: DATALOADING.LOAD_ALL,
+        data: persistedState
+      });
+
+      this.store.subscribe(
+        throttle(() => {
+          saveState(this.store.getState());
+        }, 1000)
+      );
+
+      this.setState({ storeReady: true });
+      console.log('finished');
     });
   }
 
   getTaskList() {
-    // console.log('evaluating getTaskList', this.state.store.Task);
-    if (this.state.tasks) {
-      return Object.values(this.state.tasks);
+    const state = this.store.getState();
+    if (state.Task) {
+      return Object.values(state.Task);
     }
     return [];
   }
@@ -58,16 +74,22 @@ class App extends React.Component {
   }
 
   render() {
+    if(!this.state.storeReady) {
+      return <Text>Spinner</Text>
+    }
+    console.log('shoudl work', this.getTaskList());
     return (
-      this.state.store && (
-        <Provider store={this.state.store}>
+      (
+        <Provider store={this.store}>
           <View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
+
             {/*<FlatList style={styles.container}>*/}
             {this.getTaskList().map(task => (
-              <ListTaskContainer key={task.id} task={task} />
+              <ListTaskContainer key={task.id} id={task.id} />
             ))}
             {/*</FlatList>*/}
           </View>
+
         </Provider>
       )
     );
