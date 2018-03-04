@@ -3,8 +3,6 @@ import {TextInput, View, Alert, Button, StyleSheet} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import get from 'lodash/get'
 
-
-
 export default class DetailScreen extends Component {
 
     constructor(props) {
@@ -16,27 +14,26 @@ export default class DetailScreen extends Component {
     }
 
     componentWillMount() {
-        this.props.navigation.setParams({ saveAction: this.showSaveDialog });
+        this.props.navigation.setParams({ saveAction: this.showSaveDialog, });
     }
 
     save = () => {
         //todo save data here
     };
 
+
     showSaveDialog = () => {
         Alert.alert(
             'Discard changes?',
             null,
             [
-              {text: 'Discard', onPress: () => console.log('Ask me later pressed')},
-              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'Discard', onPress: () => this.props.navigation.goBack()},
+              {text: 'Cancel', onPress: () => {}},
             ],
             { cancelable: false }
           )
-          
     }
 
-   
     static navigationOptions = ({ navigation }) => {
             const params = navigation.state.params || {};
             return {

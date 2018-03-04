@@ -1,23 +1,13 @@
-
-import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  Navigator,
-  StatusBar
-} from "react-native";
-import { StackNavigator } from "react-navigation";
-import { Provider } from "react-redux";
-import ListTaskContainer from "./components/ListTask/ListTaskContainer";
+import React, {Component} from "react";
+import {Platform, StyleSheet, Text, View} from "react-native";
+import {Provider} from "react-redux";
 import configureStore from "./redux/createStore";
-import DetailScreen from "./components/DetailScreen/DetailScreen";
 import {DATALOADING} from "./redux/Task/CheckBox/CheckBoxActions";
 import {loadState, saveState} from "./redux/localStorage";
 import throttle from "lodash/throttle";
+import Nav from "./Navigation";
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor() {
     super();
 
@@ -30,7 +20,6 @@ class App extends React.Component {
 
   componentDidMount() {
     loadState().then(persistedState => {
-      console.log('persisted state', persistedState);
       this.store.dispatch({
         type: DATALOADING.LOAD_ALL,
         data: persistedState
@@ -42,66 +31,22 @@ class App extends React.Component {
         }, 1000)
       );
 
-      this.setState({ storeReady: true });
-      console.log('finished');
+      this.setState({storeReady: true});
     });
-  }
-
-  getTaskList() {
-    const state = this.store.getState();
-    if (state.Task) {
-      return Object.values(state.Task);
-    }
-    return [];
-  }
-
-  sampleTasks() {
-    return {
-      1: {
-        id: 1,
-        name: "Pierwszy task",
-        description: "Opis taska",
-        isDone: false
-      },
-
-      2: {
-        id: 2,
-        name: "Drugi lecz zrobiony",
-        description: "Task szybko wykonany",
-        isDone: true
-      }
-    };
   }
 
   render() {
     if(!this.state.storeReady) {
-      return <Text>Spinner</Text>
+      return <Text>loader</Text>
     }
-    console.log('shoudl work', this.getTaskList());
     return (
-      (
-        <Provider store={this.store}>
-          <View style={{ marginTop: Platform.select({ ios: 0, android: 20 }) }}>
+      <Provider store={this.store}>
+        <Nav/>
+      </Provider>
 
-            {/*<FlatList style={styles.container}>*/}
-            {this.getTaskList().map(task => (
-              <ListTaskContainer key={task.id} id={task.id} />
-            ))}
-            {/*</FlatList>*/}
-          </View>
-
-        </Provider>
-      )
     );
   }
 }
-
-export default StackNavigator({
-  Home: {
-    // screen: DetailScreen,
-    screen: App
-	},
-});
 
 const styles = StyleSheet.create({
   container: {
