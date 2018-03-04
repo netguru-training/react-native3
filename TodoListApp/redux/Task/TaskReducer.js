@@ -9,7 +9,6 @@ const TaskReducer = (state = initialState, action) => {
       console.log("changeCheckboc.done", action);
       task = action.task;
       task.isDone = true;
-      // console.log('state po zmianie:', state);
       return {
         ...state
       };
@@ -27,9 +26,13 @@ const TaskReducer = (state = initialState, action) => {
   }
 };
 
+// selectors
+
+
 // todo: zmienic to na Tasks
 export const TASK_STATE_KEY = "Task";
 
 // Selectors
+export const getTasks = state => _.get(state, [TASK_STATE_KEY]);
 
 export default TaskReducer;
