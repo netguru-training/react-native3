@@ -30,7 +30,7 @@ const TaskReducer = (state = initialState, action) => {
       const actionTask = action.task;
       const currentTask = state.find(el => el.id === actionTask.id);
 
-      if (currentTask !== null) {
+      if (currentTask) {
           return state.map(task => {
             if (task.id !== actionTask.id) {
               return task;
