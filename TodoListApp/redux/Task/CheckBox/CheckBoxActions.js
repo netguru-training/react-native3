@@ -9,3 +9,7 @@ export const checkBox = {
   done: task => action(CHANGE_CHECKBOX.DONE, { task }),
   notDone: task => action(CHANGE_CHECKBOX.NOT_DONE, { task })
 };
+
+export const DATALOADING = {
+  LOAD_ALL: 'DATALOADING_LOAD_ALL'
+};
